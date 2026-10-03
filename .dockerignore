@@ -1,0 +1,11 @@
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.production
+**/node_modules
+frontend/dist
+backend/data/*.json
+!backend/data/.gitkeep
+.git
+*.log
+.DS_Store

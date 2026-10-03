@@ -1,0 +1,17 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+      - IMAGE_URI="${ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/careguide-ai:latest"
+      - aws ecr get-login-password --region "$AWS_DEFAULT_REGION" | docker login --username AWS --password-stdin "${ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+  build:
+    commands:
+      - docker build -t "$IMAGE_URI" .
+  post_build:
+    commands:
+      - docker push "$IMAGE_URI"
+      - printf '[{"name":"careguide-ai","imageUri":"%s"}]' "$IMAGE_URI" > imagedefinitions.json
+artifacts:
+  files:
+    - imagedefinitions.json
