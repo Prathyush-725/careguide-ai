@@ -1,0 +1,15 @@
+{
+  "name": "careguide-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CareGuide AI — educational patient-prep app served as one Express process",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "npm --prefix frontend install && npm --prefix frontend run build && npm --prefix backend install",
+    "start": "NODE_ENV=production node backend/src/index.js",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev"
+  }
+}
